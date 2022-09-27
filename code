@@ -1,0 +1,35 @@
+#include <Servo.h>
+int soundSenser = 2;
+int servoPin = 3;
+int LED = 10;
+boolean LEDStatus = false;
+Servo Servol;
+
+void setup()
+{
+  Serial.begin(9600);
+  Servol.attach(servoPin);
+  pinMode(soundSenser, INPUT);
+  pinMode(LED, OUTPUT);
+}
+
+void loop()
+{
+  int SensorData = digitalRead(soundSensor);
+  Serial.println(SensorData);
+  if(SensorData == 1)
+  {
+    LEDStatus = false;
+    digitalWrite(LED, LOW);
+    Servol.write(0);
+    delay(1000);
+  }
+  else
+  {
+    LEDStatus = true;
+    digitalWrite(LED, HIGH);
+    Servol.write(70);
+    delay(5000);
+  }
+}
+    
